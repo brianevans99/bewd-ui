@@ -4,17 +4,17 @@ Angular component library for Bravo Echo. Components are standalone, use the `be
 
 The published package does not include generated utility CSS. A consuming app imports the design tokens, then lets its own Tailwind build scan this package and emit the classes the components use.
 
-Current version: `0.1.0`. The package is not marked `private`. It is not published to a registry yet.
+Current version: `0.1.1`. The package is not marked `private`. It is not published from this repository.
 
 ## Install
 
 Peer dependencies:
 
-| Package           | Version   |
-| ----------------- | --------- |
-| `@angular/core`   | `^21.2.0` |
-| `@angular/common` | `^21.2.0` |
-| `tailwindcss`     | `^4.0.0`  |
+| Package           | Version              |
+| ----------------- | -------------------- |
+| `@angular/core`   | `>=21.2.0 <23.0.0`   |
+| `@angular/common` | `>=21.2.0 <23.0.0`   |
+| `tailwindcss`     | `^4.0.0`             |
 
 Once the package is available from a registry:
 
