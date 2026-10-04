@@ -12,6 +12,9 @@ export default [
         'error',
         {
           ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs,ts,cts,mts}'],
+          // Tailwind is a peer because consumers must generate the utility
+          // classes. Components do not import the package from TypeScript.
+          ignoredDependencies: ['tailwindcss'],
         },
       ],
     },

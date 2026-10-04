@@ -4,7 +4,13 @@
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "tailwindcss": "^4.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "exports": {
+    "./styles/theme.css": {
+      "default": "./styles/theme.css"
+    }
+  }
 }
