@@ -1,1 +1,159 @@
-/* You can add global styles to this file, and also import other style files */
+/* choose one of the following */
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@theme {
+    --font-sans: 'Montserrat', sans-serif;
+
+    --color-type: var(--neutral-shade-800);
+    --color-type-reverse: #ffffff;
+
+    --color-primary: var(--custom-primary-base);
+    --color-primary-hover: var(--custom-primary-shade-200);
+
+    --color-neutral: var(--neutral-tint-200);
+    --color-neutral-hover: var(--neutral-base);
+
+    --color-success: var(--custom-secondary-base);
+    --color-success-hover: var(--custom-secondary-shade-200);
+
+    --color-info: var(--info-base);
+    --color-info-hover: var(--info-shade-200);
+
+    --color-warning: var(--custom-tertiary-base);
+    --color-warning-hover: var(--custom-tertiary-shade-200);
+
+    --color-danger: var(--custom-quarternary-base);
+    --color-danger-hover: var(--custom-quarternary-shade-200);
+
+
+
+    /* Alone in the Dark #000064 */
+    --custom-primary-tint-900: #e6e6f0;
+    --custom-primary-tint-800: #cccce0;
+    --custom-primary-tint-700: #b3b3d1;
+    --custom-primary-tint-600: #9999c1;
+    --custom-primary-tint-500: #8080b2;
+    --custom-primary-tint-400: #6666a2;
+    --custom-primary-tint-300: #4d4d93;
+    --custom-primary-tint-200: #333383;
+    --custom-primary-tint-100: #1a1a74;
+    --custom-primary-base: #000064;
+    --custom-primary-shade-100: #00005a;
+    --custom-primary-shade-200: #000050;
+    --custom-primary-shade-300: #000046;
+    --custom-primary-shade-400: #00003c;
+    --custom-primary-shade-500: #000032;
+    --custom-primary-shade-600: #000028;
+    --custom-primary-shade-700: #00001e;
+    --custom-primary-shade-800: #000014;
+    --custom-primary-shade-900: #00000a;
+
+    /* Malachite Green #004c00 */
+    --custom-secondary-tint-900: #e6ede6;
+    --custom-secondary-tint-800: #ccdbcc;
+    --custom-secondary-tint-700: #b3c9b3;
+    --custom-secondary-tint-600: #99b799;
+    --custom-secondary-tint-500: #80a680;
+    --custom-secondary-tint-400: #669466;
+    --custom-secondary-tint-300: #4d824d;
+    --custom-secondary-tint-200: #337033;
+    --custom-secondary-tint-100: #1a5e1a;
+    --custom-secondary-base: #004c00;
+    --custom-secondary-shade-100: #004400;
+    --custom-secondary-shade-200: #003d00;
+    --custom-secondary-shade-300: #003500;
+    --custom-secondary-shade-400: #002e00;
+    --custom-secondary-shade-500: #002600;
+    --custom-secondary-shade-600: #001e00;
+    --custom-secondary-shade-700: #001700;
+    --custom-secondary-shade-800: #000f00;
+    --custom-secondary-shade-900: #000800;
+
+    /* Wisteria Yellow #f4c116 */
+    --custom-tertiary-tint-900: #fef9e8;
+    --custom-tertiary-tint-800: #fdf3d0;
+    --custom-tertiary-tint-700: #fcecb9;
+    --custom-tertiary-tint-600: #fbe6a2;
+    --custom-tertiary-tint-500: #fae08b;
+    --custom-tertiary-tint-400: #f8da73;
+    --custom-tertiary-tint-300: #f7d45c;
+    --custom-tertiary-tint-200: #f6cd45;
+    --custom-tertiary-tint-100: #f5c72d;
+    --custom-tertiary-base: #f4c116;
+    --custom-tertiary-shade-100: #dcae14;
+    --custom-tertiary-shade-200: #c39a12;
+    --custom-tertiary-shade-300: #ab870f;
+    --custom-tertiary-shade-400: #92740d;
+    --custom-tertiary-shade-500: #7a610b;
+    --custom-tertiary-shade-600: #624d09;
+    --custom-tertiary-shade-700: #493a07;
+    --custom-tertiary-shade-800: #312704;
+    --custom-tertiary-shade-900: #181302;
+
+    /* Miyamoto Red #e91313 */
+    --custom-quarternary-tint-900: #fde7e7;
+    --custom-quarternary-tint-800: #fbd0d0;
+    --custom-quarternary-tint-700: #f8b8b8;
+    --custom-quarternary-tint-600: #f6a1a1;
+    --custom-quarternary-tint-500: #f48989;
+    --custom-quarternary-tint-400: #f27171;
+    --custom-quarternary-tint-300: #f05a5a;
+    --custom-quarternary-tint-200: #ed4242;
+    --custom-quarternary-tint-100: #eb2b2b;
+    --custom-quarternary-base: #e91313;
+    --custom-quarternary-shade-100: #d21111;
+    --custom-quarternary-shade-200: #ba0f0f;
+    --custom-quarternary-shade-300: #a30d0d;
+    --custom-quarternary-shade-400: #8c0b0b;
+    --custom-quarternary-shade-500: #750a0a;
+    --custom-quarternary-shade-600: #5d0808;
+    --custom-quarternary-shade-700: #460606;
+    --custom-quarternary-shade-800: #2f0404;
+    --custom-quarternary-shade-900: #170202;
+
+    /* Picnic Day Sky #0dcaf0 */
+    --info-tint-900: #e7fafe;
+    --info-tint-800: #cff4fc;
+    --info-tint-700: #b6effb;
+    --info-tint-600: #9eeaf9;
+    --info-tint-500: #86e5f8;
+    --info-tint-400: #6edff6;
+    --info-tint-300: #56daf5;
+    --info-tint-200: #3dd5f3;
+    --info-tint-100: #25cff2;
+    --info-base: #0dcaf0;
+    --info-shade-100: #0cb6d8;
+    --info-shade-200: #0aa2c0;
+    --info-shade-300: #098da8;
+    --info-shade-400: #087990;
+    --info-shade-500: #076578;
+    --info-shade-600: #055160;
+    --info-shade-700: #043d48;
+    --info-shade-800: #032830;
+    --info-shade-900: #011418;
+
+    /* Neutral #808080 */
+    --neutral-tint-900: #f2f2f2;
+    --neutral-tint-800: #e6e6e6;
+    --neutral-tint-700: #d9d9d9;
+    --neutral-tint-600: #cccccc;
+    --neutral-tint-500: #c0c0c0;
+    --neutral-tint-400: #b3b3b3;
+    --neutral-tint-300: #a6a6a6;
+    --neutral-tint-200: #999999;
+    --neutral-tint-100: #8d8d8d;
+    --neutral-base: #808080;
+    --neutral-shade-100: #737373;
+    --neutral-shade-200: #666666;
+    --neutral-shade-300: #5a5a5a;
+    --neutral-shade-400: #4d4d4d;
+    --neutral-shade-500: #404040;
+    --neutral-shade-600: #333333;
+    --neutral-shade-700: #262626;
+    --neutral-shade-800: #1a1a1a;
+    --neutral-shade-900: #0d0d0d;
+
+
+}
