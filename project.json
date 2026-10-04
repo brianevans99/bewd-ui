@@ -9,9 +9,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/bewd-ui",
@@ -24,9 +22,7 @@
             "input": "public"
           }
         ],
-        "styles": [
-          "./src/styles.css"
-        ]
+        "styles": ["./src/styles.css"]
       },
       "configurations": {
         "production": {
@@ -76,16 +72,12 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "./src"
-        ]
+        "lintFilePatterns": ["./src"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectName}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
       "options": {
         "jestConfig": "jest.config.cts",
         "tsConfig": "tsconfig.spec.json"
@@ -98,6 +90,55 @@
         "buildTarget": "bewd-ui:build",
         "port": 4200,
         "spa": true
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "./.storybook",
+        "browserTarget": "bewd-ui:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/bewd-ui",
+        "configDir": "./.storybook",
+        "browserTarget": "bewd-ui:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c ./.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "dependsOn": ["build-storybook"],
+      "options": {
+        "buildTarget": "bewd-ui:build-storybook",
+        "staticFilePath": "dist/storybook/bewd-ui",
+        "spa": true
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "bewd-ui:build-storybook:ci"
+        }
       }
     }
   }
