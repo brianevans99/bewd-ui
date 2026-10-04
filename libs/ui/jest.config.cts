@@ -1,8 +1,8 @@
 module.exports = {
-  displayName: 'bewd-ui',
-  preset: './jest.preset.js',
+  displayName: 'ui',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: './coverage/bewd-ui',
+  coverageDirectory: '../../coverage/libs/ui',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
@@ -17,9 +17,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
-  ],
-  testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.[jt]s?(x)',
-    '<rootDir>/src/**/*(*.)@(spec|test).[jt]s?(x)',
   ],
 };

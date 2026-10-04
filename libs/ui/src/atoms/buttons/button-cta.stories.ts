@@ -14,7 +14,8 @@ const meta: Meta<ButtonCtaComponent> = {
   parameters: {
     docs: {
       description: {
-        component: 'A call-to-action button that comes in various styles, used for the most important actions.',
+        component:
+          'A call-to-action button that comes in various styles, used for the most important actions.',
       },
     },
   },
@@ -30,7 +31,8 @@ export const Primary: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'The primary call-to-action button, used for the most important actions.',
+        story:
+          'The primary call-to-action button, used for the most important actions.',
       },
     },
   },
