@@ -1,11 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'be-button-cta',
   imports: [CommonModule],
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <button type="button" [class]="buttonClasses">
       {{ variant | titlecase }}
