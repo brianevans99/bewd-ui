@@ -9,7 +9,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/bewd-ui",
@@ -22,7 +24,9 @@
             "input": "public"
           }
         ],
-        "styles": ["./src/styles.css"]
+        "styles": [
+          "./src/styles.css"
+        ]
       },
       "configurations": {
         "production": {
@@ -72,14 +76,18 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["./src"]
+        "lintFilePatterns": [
+          "./src"
+        ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectName}"
+      ],
       "options": {
-        "jestConfig": "jest.config.cts",
+        "jestConfig": "jest.config.app.ts",
         "tsConfig": "tsconfig.spec.json"
       }
     },
@@ -108,7 +116,9 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
-      "outputs": ["{options.outputDir}"],
+      "outputs": [
+        "{options.outputDir}"
+      ],
       "options": {
         "outputDir": "dist/storybook/bewd-ui",
         "configDir": "./.storybook",
@@ -129,7 +139,9 @@
     },
     "static-storybook": {
       "executor": "@nx/web:file-server",
-      "dependsOn": ["build-storybook"],
+      "dependsOn": [
+        "build-storybook"
+      ],
       "options": {
         "buildTarget": "bewd-ui:build-storybook",
         "staticFilePath": "dist/storybook/bewd-ui",

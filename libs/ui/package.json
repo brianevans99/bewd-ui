@@ -1,0 +1,10 @@
+{
+  "name": "@bravoecho/ui",
+  "version": "0.1.0",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/core": "^21.2.0"
+  },
+  "sideEffects": false
+}
