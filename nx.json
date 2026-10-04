@@ -19,11 +19,6 @@
     "sharedGlobals": []
   },
   "targetDefaults": {
-    "@angular-devkit/build-angular:browser": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    },
     "@nx/eslint:lint": {
       "cache": true,
       "inputs": [
@@ -65,12 +60,6 @@
   },
   "plugins": [
     {
-      "plugin": "@nx/playwright/plugin",
-      "options": {
-        "targetName": "e2e"
-      }
-    },
-    {
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint"
@@ -89,7 +78,7 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "bewd-ui",
+  "defaultProject": "ui",
   "release": {
     "version": {
       "preVersionCommand": "npx nx run-many -t build"
