@@ -29,7 +29,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'app',
+          prefix: 'be',
           style: 'camelCase',
         },
       ],
@@ -37,7 +37,7 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'app',
+          prefix: 'be',
           style: 'kebab-case',
         },
       ],
