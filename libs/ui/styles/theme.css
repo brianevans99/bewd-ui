@@ -1,4 +1,4 @@
-/* Design tokens for @bravoecho/ui. Consumers import this after `tailwindcss`. */
+/* Design tokens for @bravoechoweb/ui. Consumers import this after `tailwindcss`. */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @theme {
