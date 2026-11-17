@@ -10,11 +10,12 @@ Current version: `0.1.1`. The library package is not marked `private` (so it can
 
 Peer dependencies:
 
-| Package           | Version              |
-| ----------------- | -------------------- |
-| `@angular/core`   | `>=21.2.0 <23.0.0`   |
-| `@angular/common` | `>=21.2.0 <23.0.0`   |
-| `tailwindcss`     | `^4.0.0`             |
+| Package           | Version            |
+| ----------------- | ------------------ |
+| `@angular/core`   | `>=21.2.0 <23.0.0` |
+| `@angular/common` | `>=21.2.0 <23.0.0` |
+| `tailwindcss`     | `^4.0.0`           |
+| `flowbite`        | `^4.0.2`           |
 
 The package is private on npmjs.com under the `bravoechoweb` org. A consuming app needs a read-only token in the environment as `NPM_TOKEN`, and this `.npmrc` committed next to its `package.json` (the token itself stays out of git):
 
@@ -23,7 +24,7 @@ The package is private on npmjs.com under the `bravoechoweb` org. A consuming ap
 ```
 
 ```sh
-npm install @bravoechoweb/ui
+npm install @bravoechoweb/ui flowbite
 ```
 
 How to create that token, including for a Heroku app, is in [RELEASING.md](./RELEASING.md).
@@ -65,7 +66,9 @@ In the app's global stylesheet (for example `src/styles.css`):
 @source "../node_modules/@bravoechoweb/ui";
 ```
 
-`theme.css` holds the `@theme` tokens (brand color ramps and the Montserrat font). Import it after `tailwindcss` so Tailwind can read `@theme`.
+`theme.css` loads Flowbite's minimal theme (its `@theme` tokens such as `bg-brand`, `bg-success`, and `rounded-base`, plus the Open Sans font) and the Flowbite Tailwind plugin. Tailwind resolves both from the app's `node_modules`, which is why `flowbite` is a peer dependency. Import it after `tailwindcss` so Tailwind can read `@theme`. For dark mode, put the `dark` class on a parent element (for example `<html class="dark">`). The theme switches its tokens under `.dark`.
+
+`be-button-cta` has not been moved to the Flowbite tokens yet. Its `success`, `warning`, and `danger` variants are colored. `primary`, `secondary`, and `info` render without a background until the variants are remapped.
 
 `@source` is relative to the stylesheet. `../node_modules/@bravoechoweb/ui` is correct when the stylesheet lives in `src/` and `node_modules` is one directory up. From `apps/demo/src/styles.css` the path is `../../../node_modules/@bravoechoweb/ui`.
 
