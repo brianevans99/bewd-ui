@@ -90,4 +90,4 @@ Then:
 npm install @bravoechoweb/ui
 ```
 
-`@import '@bravoechoweb/ui/styles/theme.css'` and `@source "../node_modules/@bravoechoweb/ui"` are the Tailwind 4 setup. The component import is `@bravoechoweb/ui`.
+The app also installs the `flowbite` peer dependency (`npm install flowbite`), because `theme.css` imports Flowbite's minimal theme and plugin. `@import '@bravoechoweb/ui/styles/theme.css'` and `@source "../node_modules/@bravoechoweb/ui"` are the Tailwind 4 setup. The component import is `@bravoechoweb/ui`.

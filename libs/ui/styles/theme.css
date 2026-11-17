@@ -1,0 +1,4 @@
+/* Design tokens for @bravoechoweb/ui: Flowbite's minimal theme. Consumers import this after `tailwindcss`. */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import 'flowbite/src/themes/minimal.css';
+@plugin 'flowbite/plugin';

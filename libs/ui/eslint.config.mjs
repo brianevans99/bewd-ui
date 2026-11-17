@@ -14,7 +14,9 @@ export default [
           ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs,ts,cts,mts}'],
           // Tailwind is a peer because consumers must generate the utility
           // classes. Components do not import the package from TypeScript.
-          ignoredDependencies: ['tailwindcss'],
+          // Flowbite is a peer because styles/theme.css imports its theme and
+          // plugin, which the consumer's Tailwind build resolves.
+          ignoredDependencies: ['tailwindcss', 'flowbite'],
         },
       ],
     },
