@@ -12,6 +12,7 @@
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "src/**/*.stories.ts",
+    "src/testing/**",
     "jest.config.ts",
     "jest.config.cts",
     "src/test-setup.ts"

@@ -11,7 +11,8 @@ export default [
       '@nx/dependency-checks': [
         'error',
         {
-          ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs,ts,cts,mts}'],
+          // src/testing holds spec-only helpers and is excluded from the build.
+          ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs,ts,cts,mts}', '{projectRoot}/src/testing/**'],
           // Tailwind is a peer because consumers must generate the utility
           // classes. Components do not import the package from TypeScript.
           // Flowbite is a peer because styles/theme.css imports its theme and
@@ -38,7 +39,8 @@ export default [
       '@angular-eslint/component-selector': [
         'error',
         {
-          type: 'element',
+          // Attribute selectors let a component be a native element, e.g. button[be-button-cta].
+          type: ['element', 'attribute'],
           prefix: 'be',
           style: 'kebab-case',
         },
