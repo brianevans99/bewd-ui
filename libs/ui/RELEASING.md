@@ -66,7 +66,7 @@ The workspace root `package.json` is `"private": true`. `npm publish` from the r
 4. Check **Secured** so the log masks it.
 5. Save. Do not enable or change anything else, and do not put the token in a file.
 
-Pipelines is not turned on by the files in this pull request. Someone still has to enable Pipelines for the repository in Bitbucket before a tag will publish.
+Pipelines must also be enabled for the repository in Bitbucket (Repository settings, then Pipelines, then Settings). The pipeline file alone does not turn it on, and a tag pushed while Pipelines is off does not publish.
 
 ## 5. Install from a consuming app, including Heroku
 
@@ -90,4 +90,4 @@ Then:
 npm install @bravoechoweb/ui
 ```
 
-The app also installs the `flowbite` peer dependency (`npm install flowbite`), because `theme.css` imports Flowbite's minimal theme and plugin. `@import '@bravoechoweb/ui/styles/theme.css'` and `@source "../node_modules/@bravoechoweb/ui"` are the Tailwind 4 setup. The component import is `@bravoechoweb/ui`.
+The app also installs the `flowbite` peer dependency (`npm install flowbite`), because `theme.css` imports Flowbite's default theme and plugin. `@import '@bravoechoweb/ui/styles/theme.css'` and `@source "../node_modules/@bravoechoweb/ui"` are the Tailwind 4 setup. The component import is `@bravoechoweb/ui`.
