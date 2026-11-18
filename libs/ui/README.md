@@ -4,7 +4,7 @@ Angular component library for Bravo Echo. Components are standalone, use the `be
 
 The published package does not include generated utility CSS. A consuming app imports the design tokens, then lets its own Tailwind build scan this package and emit the classes the components use.
 
-Current version: `0.1.1`. The library package is not marked `private` (so it can be published). `publishConfig.access` is `restricted`, so npm will not make it public. The workspace root package is `private`, so `npm publish` from the repo root does nothing.
+Current version: `0.2.0`. The library package is not marked `private` (so it can be published). `publishConfig.access` is `restricted`, so npm will not make it public. The workspace root package is `private`, so `npm publish` from the repo root does nothing.
 
 ## Install
 
@@ -61,6 +61,25 @@ Inputs:
 - `fit`: the button fills its parent by default; `fit` shrinks it to its content. Use `fit` for icon-only buttons and for buttons in toolbars or other rows, where full-width buttons would share the row equally. For a button that's full width on phones and fits its content on wider screens, leave out `fit` and add a breakpoint class: `<button be-button-cta class="sm:w-fit">`.
 
 An icon-only button needs a native `aria-label`, for example `<button be-button-cta aria-label="Download">`.
+
+## Headings
+
+`be-heading` is an attribute on a native `<h1>`–`<h6>`, so screen readers get the real heading role and level. Use it on every heading so they all look the same. Choose the tag for the page structure, never for its size.
+
+```ts
+import { HeadingComponent } from '@bravoechoweb/ui';
+```
+
+```html
+<h2 be-heading>Account settings</h2>
+<h2 be-heading [size]="4">Looks like an h4, announced as an h2</h2>
+```
+
+Inputs:
+
+- `size`: `1` to `6`. Changes the look only; without it, the heading looks like its own level.
+
+For a larger size on wider screens, add a breakpoint class such as `<h1 be-heading class="md:text-6xl">`. Headings have no margins; space them in the layout.
 
 ## Tailwind 4 setup
 
