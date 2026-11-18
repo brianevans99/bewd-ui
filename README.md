@@ -1,6 +1,11 @@
 # bewd-ui
+## Reusable, accessible Angular components styled with Tailwind 4, built for fast client one-page sites.
 
 Nx workspace for the Bravo Echo Angular component library, [`@bravoechoweb/ui`](libs/ui).
+
+**Live Storybook:** https://brianevans99.github.io/bewd-ui/
+
+Development and pull requests happen on Bitbucket; this GitHub repo is a public mirror.
 
 Storybook is the component workshop. There is no demo application in this repo.
 
