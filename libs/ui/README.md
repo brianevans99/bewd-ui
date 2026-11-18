@@ -81,6 +81,28 @@ Inputs:
 
 For a larger size on wider screens, add a breakpoint class such as `<h1 be-heading class="md:text-6xl">`. Headings have no margins; space them in the layout.
 
+## Sections
+
+`be-container` is an attribute on the `<div>` inside a page section. It sets the section's padding and maximum width, so every section is spaced the same way. Put the background and the section's name on the `<section>`: the background then runs full width, and the section is only announced as a landmark once it has a name.
+
+```ts
+import { ContainerComponent, HeadingComponent, RevealDirective } from '@bravoechoweb/ui';
+```
+
+```html
+<section class="bg-neutral-primary" aria-labelledby="pricing-title">
+  <div be-container beReveal="left">
+    <h2 be-heading id="pricing-title">Pricing</h2>
+  </div>
+</section>
+```
+
+Container inputs:
+
+- `width`: `wide` (the default, `max-w-7xl`) for grids and multi-column content, or `narrow` (`max-w-3xl`) for reading text and forms.
+
+`beReveal` slides an element's children in once, 80ms apart, the first time it scrolls into view. Its value is the side they come from: `left` (the default) or `right`. It works on any element, not only the container. It does nothing for users who prefer reduced motion or in browsers without `IntersectionObserver`, and children show as soon as keyboard focus moves into them.
+
 ## Tailwind 4 setup
 
 In the app's global stylesheet (for example `src/styles.css`):
