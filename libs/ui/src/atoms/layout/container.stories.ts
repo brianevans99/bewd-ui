@@ -91,6 +91,7 @@ export const WithReveal: Story = {
           <h2 be-heading id="reveal-title">From idea to launch</h2>
           <p class="mt-4 text-body">Each child fades in after the one before it.</p>
           <p class="mt-4 text-body">Users who prefer reduced motion see the content straight away.</p>
+          <p class="mt-4"><a href="#reveal-title" class="text-fg-brand underline">Tab here before scrolling: focus shows the content instantly</a></p>
         </div>
       </section>
     `,

@@ -3,8 +3,8 @@ import { afterNextRender, DestroyRef, Directive, ElementRef, inject, input } fro
 export type RevealDirection = 'left' | 'right';
 
 // Children start hidden and offset, then fade and slide in 80ms apart. Each child's --reveal-i is set inline.
-// is-revealed is added by the observer. Focus-within also shows them, so a keyboard user's focus ring is never
-// hidden inside a group that hasn't revealed yet.
+// is-revealed is added by the observer, or by the first focusin. Focus-within shows the children with no transition,
+// so a keyboard user's focus ring is visible the moment they tab into a group that hasn't revealed yet.
 const revealClasses = [
   'motion-safe:*:opacity-0',
   'motion-safe:*:transition-[opacity,translate]',
@@ -15,6 +15,7 @@ const revealClasses = [
   '[&.is-revealed>*]:translate-x-0',
   'focus-within:*:opacity-100',
   'focus-within:*:translate-x-0',
+  'focus-within:*:transition-none',
 ];
 
 const directionClasses: Record<RevealDirection, string> = {
@@ -65,7 +66,18 @@ export class RevealDirective {
 
       const io = sharedObserver();
       io.observe(host);
-      destroyRef.onDestroy(() => io.unobserve(host));
+
+      // Focus reveals for good, so the content doesn't fade back out when focus leaves before the observer fires.
+      const revealOnFocus = (): void => {
+        host.classList.add('is-revealed');
+        io.unobserve(host);
+      };
+      host.addEventListener('focusin', revealOnFocus, { once: true });
+
+      destroyRef.onDestroy(() => {
+        io.unobserve(host);
+        host.removeEventListener('focusin', revealOnFocus);
+      });
     });
   }
 }

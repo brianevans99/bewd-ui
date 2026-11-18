@@ -104,11 +104,22 @@ describe('RevealDirective', () => {
     expect(host.classList).not.toContain(other);
   });
 
-  it('shows children that receive keyboard focus before the reveal', async () => {
+  it('shows children instantly, with no transition, while focus is inside', async () => {
     const host = await render();
 
     expect(host.classList).toContain('focus-within:*:opacity-100');
     expect(host.classList).toContain('focus-within:*:translate-x-0');
+    expect(host.classList).toContain('focus-within:*:transition-none');
+  });
+
+  it('reveals for good on the first focus, before the host scrolls into view', async () => {
+    const host = await render();
+    const observer = RecordingObserver.instance as RecordingObserver;
+
+    host.querySelector('p')?.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+
+    expect(host.classList).toContain('is-revealed');
+    expect(observer.observed.has(host)).toBe(false);
   });
 
   it('leaves content alone when the user prefers reduced motion', async () => {
