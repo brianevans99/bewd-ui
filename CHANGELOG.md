@@ -1,3 +1,14 @@
+## 0.1.2 (2026-10-05)
+
+### 🩹 Fixes
+
+- keep the button on Angular 22's default change detection
+- publish the library as @bravoechoweb/ui
+
+### ❤️ Thank You
+
+- brian.evans
+
 ## 0.1.1 (2026-10-04)
 
 ### 🩹 Fixes
