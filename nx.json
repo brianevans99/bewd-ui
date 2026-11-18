@@ -63,6 +63,9 @@
   },
   "defaultProject": "ui",
   "release": {
+    "git": {
+      "tag": false
+    },
     "version": {
       "preVersionCommand": "npx nx run-many -t build"
     }

@@ -62,6 +62,25 @@ Inputs:
 
 An icon-only button needs a native `aria-label`, for example `<button be-button-cta aria-label="Download">`.
 
+## Headings
+
+`be-heading` is an attribute on a native `<h1>`–`<h6>`, so screen readers get the real heading role and level. Use it on every heading so they all look the same. Choose the tag for the page structure, never for its size.
+
+```ts
+import { HeadingComponent } from '@bravoechoweb/ui';
+```
+
+```html
+<h2 be-heading>Account settings</h2>
+<h2 be-heading [size]="4">Looks like an h4, announced as an h2</h2>
+```
+
+Inputs:
+
+- `size`: `1` to `6`. Changes the look only; without it, the heading looks like its own level.
+
+For a larger size on wider screens, add a breakpoint class such as `<h1 be-heading class="md:text-6xl">`. Headings have no margins; space them in the layout.
+
 ## Tailwind 4 setup
 
 In the app's global stylesheet (for example `src/styles.css`):
