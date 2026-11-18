@@ -1,3 +1,14 @@
+## 0.2.0 (2026-11-18)
+
+### 🚀 Features
+
+- ship Flowbite's minimal theme as the design tokens
+- make the CTA button a native button attribute with sizes, loading and ripple
+
+### ❤️ Thank You
+
+- brianevans
+
 ## 0.1.2 (2026-10-05)
 
 ### 🩹 Fixes
