@@ -2,7 +2,7 @@
 
 The package is a private package on npmjs.com in the paid org `bravoechoweb`. Version 0.1.1 was never published. `@bravoecho/ui` is the wrong scope: npm returns E402 for it.
 
-This repository does not publish. A git tag matching `v*` triggers Bitbucket Pipelines, which builds `dist/libs/ui` and runs `npm publish --access restricted`.
+This repository does not publish. A git tag matching `v*` triggers Bitbucket Pipelines, which builds `dist/libs/ui` and runs `npm publish --access public`.
 
 ## 1. Cut a version through a pull request
 
@@ -44,7 +44,7 @@ git push origin v0.1.2
 1. `npm ci`
 2. `npx nx run-many -t lint,test,build -p ui`. `main` has no pipeline of its own, so this is the last check before publishing.
 3. Checks that the tag `vX.Y.Z` matches `version` in `dist/libs/ui/package.json`
-4. `npm publish dist/libs/ui --access restricted`
+4. `npm publish dist/libs/ui --access public`
 
 The root `.npmrc` is only:
 
@@ -52,7 +52,7 @@ The root `.npmrc` is only:
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
 ```
 
-npm reads `NPM_TOKEN` from the environment. Nothing in the repo is a token. `publishConfig.access` is `restricted`, and the publish command repeats `--access restricted`, so a public publish has to be done on purpose twice.
+npm reads `NPM_TOKEN` from the environment. Nothing in the repo is a token. `publishConfig.access` is `public`, and the publish command repeats `--access public`, so a public publish has to be done on purpose twice.
 
 Pull requests run `npm ci`, then `nx run-many -t lint,test,build -p ui`. They do not publish. Pushes to `main` run nothing: `main` only changes by merging a pull request whose pipeline already ran, with the destination branch merged in.
 
