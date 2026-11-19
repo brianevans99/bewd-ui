@@ -4,7 +4,7 @@ Angular component library for Bravo Echo. Components are standalone, use the `be
 
 The published package does not include generated utility CSS. A consuming app imports the design tokens, then lets its own Tailwind build scan this package and emit the classes the components use.
 
-Current version: `0.4.0`. The library package is not marked `private` (so it can be published). `publishConfig.access` is `restricted`, so npm will not make it public. The workspace root package is `private`, so `npm publish` from the repo root does nothing.
+Current version: `0.4.0`. The package is public on npmjs.com. To publish a new version, see [RELEASING.md](./RELEASING.md).
 
 ## Install
 
@@ -17,17 +17,11 @@ Peer dependencies:
 | `tailwindcss`     | `^4.0.0`           |
 | `flowbite`        | `^4.0.2`           |
 
-The package is private on npmjs.com under the `bravoechoweb` org. A consuming app needs a read-only token in the environment as `NPM_TOKEN`, and this `.npmrc` committed next to its `package.json` (the token itself stays out of git):
-
-```
-//registry.npmjs.org/:_authToken=${NPM_TOKEN}
-```
+The package is public, so no npm token is needed:
 
 ```sh
 npm install @bravoechoweb/ui flowbite
 ```
-
-How to create that token, including for a Heroku app, is in [RELEASING.md](./RELEASING.md).
 
 The consuming app also needs the Tailwind 4 PostCSS plugin so Angular processes `@import "tailwindcss"` and `@theme`:
 
