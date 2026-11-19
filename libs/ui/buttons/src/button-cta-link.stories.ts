@@ -26,8 +26,9 @@ const meta: Meta<ButtonCtaLinkStoryArgs> = {
       description: 'Native `href`. `routerLink` works too.',
     },
     fit: {
-      control: 'boolean',
-      description: 'The link fills its parent by default. `fit` shrinks it to its content.',
+      control: 'select',
+      options: [false, true, 'sm', 'md', 'lg', 'xl', '2xl'],
+      description: 'The link fills its parent by default. `fit` shrinks it to its content at every width; a breakpoint shrinks it from that breakpoint up.',
     },
     size: {
       control: 'select',
@@ -73,8 +74,8 @@ export const Pair: Story = {
   render: () => ({
     template: `
       <div class="flex flex-col gap-3 sm:flex-row">
-        <a be-button-cta href="#contact" class="sm:w-fit">Contact us</a>
-        <a be-button-cta href="#pricing" variant="tertiary" class="sm:w-fit">See pricing</a>
+        <a be-button-cta href="#contact" fit="sm">Contact us</a>
+        <a be-button-cta href="#pricing" variant="tertiary" fit="sm">See pricing</a>
       </div>
     `,
   }),

@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, RouterLink } from '@angular/router';
 import { axe } from '../../src/testing/axe';
-import { ButtonCtaSize, ButtonCtaVariant } from './button-cta-base';
+import { ButtonCtaBreakpoint, ButtonCtaFit, ButtonCtaSize, ButtonCtaVariant } from './button-cta-base';
 import { ButtonCtaLinkComponent } from './button-cta-link';
 
 @Component({
@@ -16,7 +16,7 @@ import { ButtonCtaLinkComponent } from './button-cta-link';
 class LinkHostComponent {
   readonly variant = input<ButtonCtaVariant>('default');
   readonly size = input<ButtonCtaSize>('base');
-  readonly fit = input<boolean | string>(false);
+  readonly fit = input<ButtonCtaFit | ''>(false);
 }
 
 @Component({
@@ -110,6 +110,28 @@ describe('ButtonCtaLinkComponent', () => {
 
     expect(link.classList).toContain('w-fit');
     expect(link.classList).not.toContain('w-full');
+  });
+
+  it('fits at every width with fit="true"', () => {
+    fixture.componentRef.setInput('fit', true);
+    fixture.detectChanges();
+
+    expect(link.classList).toContain('w-fit');
+    expect(link.classList).not.toContain('w-full');
+  });
+
+  it.each<[ButtonCtaBreakpoint, string]>([
+    ['sm', 'sm:w-fit'],
+    ['md', 'md:w-fit'],
+    ['lg', 'lg:w-fit'],
+    ['xl', 'xl:w-fit'],
+    ['2xl', '2xl:w-fit'],
+  ])('with fit="%s", fills its parent and adds %s', (breakpoint, fitClass) => {
+    fixture.componentRef.setInput('fit', breakpoint);
+    fixture.detectChanges();
+
+    expectClasses(link, `w-full ${fitClass}`);
+    expect(link.classList).not.toContain('w-fit');
   });
 
   it('does not set button-only attributes on the link', () => {
