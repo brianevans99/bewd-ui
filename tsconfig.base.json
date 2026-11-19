@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "paths": {
-      "@bravoechoweb/ui": ["./libs/ui/src/index.ts"]
+      "@bravoechoweb/ui/buttons": ["./libs/ui/buttons/src/index.ts"],
+      "@bravoechoweb/ui/typography": ["./libs/ui/typography/src/index.ts"],
+      "@bravoechoweb/ui/layout": ["./libs/ui/layout/src/index.ts"],
+      "@bravoechoweb/ui/directives": ["./libs/ui/directives/src/index.ts"]
     },
     "strict": false,
     "noUncheckedSideEffectImports": false,

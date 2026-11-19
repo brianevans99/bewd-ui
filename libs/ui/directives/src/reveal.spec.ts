@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ContainerComponent, ContainerWidth } from '../atoms/layout/container';
-import { axe } from '../testing/axe';
+import { ContainerComponent, ContainerWidth } from '@bravoechoweb/ui/layout';
+import { axe } from '../../src/testing/axe';
 import { RevealDirection, RevealDirective } from './reveal';
 
 @Component({

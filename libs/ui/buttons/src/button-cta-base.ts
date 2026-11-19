@@ -1,8 +1,7 @@
-import { booleanAttribute, Component, computed, DestroyRef, ElementRef, inject, input, signal } from '@angular/core';
+import { booleanAttribute, computed, Directive, ElementRef, inject, input, signal } from '@angular/core';
 
 export type ButtonCtaVariant = 'default' | 'secondary' | 'tertiary' | 'success' | 'danger' | 'warning' | 'dark' | 'ghost';
 export type ButtonCtaSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl';
-export type ButtonCtaType = 'button' | 'submit' | 'reset';
 
 interface Ripple {
   id: number;
@@ -33,106 +32,75 @@ const sizeClasses: Record<ButtonCtaSize, string> = {
   xl: 'text-base px-6 py-3.5'
 };
 
-@Component({
-  // An attribute selector makes the host the native <button>, so consumers' ARIA, id and form attributes land on it.
-  selector: 'button[be-button-cta]',
+// Ripple colour is currentColor so it follows each variant and the consumer's theme without @theme tokens.
+export const rippleStyles = `
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    translate: -50% -50%;
+    background: currentColor;
+    opacity: 0;
+    pointer-events: none;
+    animation: be-ripple 300ms ease-out;
+  }
+
+  /* Reduced motion: the whole surface fades instead of a circle growing from the press point. */
+  .ripple-fade {
+    inset: 0;
+    translate: none;
+    border-radius: inherit;
+    animation: be-ripple-fade 300ms ease-out;
+  }
+
+  @keyframes be-ripple {
+    from { scale: 0; opacity: 0.3; }
+    to { scale: 1; opacity: 0; }
+  }
+
+  @keyframes be-ripple-fade {
+    from { opacity: 0.2; }
+    to { opacity: 0; }
+  }
+`;
+
+// Styling and ripple shared by the button and link CTAs. Each subclass adds the bindings for its own element.
+@Directive({
   host: {
-    '[class]': 'buttonClasses()',
-    '[type]': 'type()',
-    '[disabled]': 'disabled()',
-    // Loading uses aria-disabled rather than disabled, so keyboard focus stays on the button.
-    '[attr.aria-busy]': 'loading() || null',
-    '[attr.aria-disabled]': 'loading() || null',
+    '[class]': 'classes()',
     '(pointerdown)': 'onPointerDown($event)',
     '(pointerup)': 'onPointerUp($event)',
     '(pointercancel)': 'pendingTouch = false',
     '(click)': 'onClick($event)',
   },
-  template: `
-    @for (ripple of ripples(); track ripple.id) {
-      <span
-        class="ripple"
-        [class.ripple-fade]="ripple.fade"
-        aria-hidden="true"
-        [style.left.px]="ripple.fade ? null : ripple.x"
-        [style.top.px]="ripple.fade ? null : ripple.y"
-        [style.width.px]="ripple.fade ? null : ripple.size"
-        [style.height.px]="ripple.fade ? null : ripple.size"
-        (animationend)="removeRipple(ripple.id)"
-      ></span>
-    }
-    @if (loading()) {
-      <svg class="size-4 motion-safe:animate-spin" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4z" />
-      </svg>
-    }
-    <ng-content />
-  `,
-  // Ripple colour is currentColor so it follows each variant and the consumer's theme without @theme tokens.
-  styles: `
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      translate: -50% -50%;
-      background: currentColor;
-      opacity: 0;
-      pointer-events: none;
-      animation: be-ripple 300ms ease-out;
-    }
-
-    /* Reduced motion: the whole surface fades instead of a circle growing from the press point. */
-    .ripple-fade {
-      inset: 0;
-      translate: none;
-      border-radius: inherit;
-      animation: be-ripple-fade 300ms ease-out;
-    }
-
-    @keyframes be-ripple {
-      from { scale: 0; opacity: 0.3; }
-      to { scale: 1; opacity: 0; }
-    }
-
-    @keyframes be-ripple-fade {
-      from { opacity: 0.2; }
-      to { opacity: 0; }
-    }
-  `,
 })
-export class ButtonCtaComponent {
+export abstract class ButtonCtaBase {
   readonly variant = input<ButtonCtaVariant>('default');
   readonly size = input<ButtonCtaSize>('base');
-  readonly type = input<ButtonCtaType>('button');
-  readonly disabled = input(false, { transform: booleanAttribute });
-  readonly loading = input(false, { transform: booleanAttribute });
   // Full width by default; `fit` shrinks to the content. Only one width class is ever applied, so they can't conflict.
   readonly fit = input(false, { transform: booleanAttribute });
 
-  protected readonly buttonClasses = computed(() =>
+  protected readonly classes = computed(() =>
     [
       baseClasses,
       variantClasses[this.variant()],
       sizeClasses[this.size()],
       this.fit() ? 'w-fit' : 'w-full',
-      this.loading() ? 'cursor-progress' : '',
+      this.stateClasses(),
     ].join(' ')
   );
   protected readonly ripples = signal<Ripple[]>([]);
   protected pendingTouch = false;
 
-  private readonly host = inject<ElementRef<HTMLButtonElement>>(ElementRef).nativeElement;
+  protected readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
   private nextRippleId = 0;
 
-  constructor() {
-    // Capture phase runs before the consumer's (click) on the same element, so loading can block it.
-    const blockWhileLoading = (event: MouseEvent): void => {
-      if (!this.loading()) return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    };
-    this.host.addEventListener('click', blockWhileLoading, { capture: true });
-    inject(DestroyRef).onDestroy(() => this.host.removeEventListener('click', blockWhileLoading, { capture: true }));
+  // Extra classes for the subclass's own state, read inside `classes`, so any signals it reads are tracked.
+  protected stateClasses(): string {
+    return '';
+  }
+
+  protected canRipple(): boolean {
+    return true;
   }
 
   protected onPointerDown(event: PointerEvent): void {
@@ -152,7 +120,7 @@ export class ButtonCtaComponent {
   }
 
   protected onClick(event: MouseEvent): void {
-    // detail is 0 when Enter or Space activated the button, so ripple from the centre.
+    // detail is 0 when the keyboard activated the element, so ripple from the centre.
     if (event.detail !== 0) return;
     const rect = this.host.getBoundingClientRect();
     this.addRipple(rect.left + rect.width / 2, rect.top + rect.height / 2);
@@ -163,12 +131,12 @@ export class ButtonCtaComponent {
   }
 
   private addRipple(clientX: number, clientY: number): void {
-    if (this.disabled() || this.loading()) return;
+    if (!this.canRipple()) return;
 
     const rect = this.host.getBoundingClientRect();
     const x = clientX - rect.left;
     const y = clientY - rect.top;
-    // Diameter reaches the farthest corner, so the circle always covers the whole button.
+    // Diameter reaches the farthest corner, so the circle always covers the whole element.
     const size = 2 * Math.hypot(Math.max(x, rect.width - x), Math.max(y, rect.height - y));
     const fade = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 

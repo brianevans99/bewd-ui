@@ -37,11 +37,13 @@ npm install -D @tailwindcss/postcss postcss
 
 ## Use a component
 
+Components are grouped into entry points: `@bravoechoweb/ui/buttons`, `@bravoechoweb/ui/typography`, `@bravoechoweb/ui/layout` and `@bravoechoweb/ui/directives`. Import from the group the component belongs to. `@bravoechoweb/ui` itself exports nothing.
+
 Import the standalone component and add it to `imports`. The button component is an attribute on a native `<button>`, so ARIA, `id`, and form attributes work as usual.
 
 ```ts
 import { Component } from '@angular/core';
-import { ButtonCtaComponent } from '@bravoechoweb/ui';
+import { ButtonCtaComponent } from '@bravoechoweb/ui/buttons';
 
 @Component({
   selector: 'app-example',
@@ -62,12 +64,27 @@ Inputs:
 
 An icon-only button needs a native `aria-label`, for example `<button be-button-cta aria-label="Download">`.
 
+### Links that look like the CTA button
+
+When the CTA navigates (to another page or an anchor on the same page), use a link, not a button. Put the same attribute on a native `<a>` and import `ButtonCtaLinkComponent`:
+
+```ts
+import { ButtonCtaLinkComponent } from '@bravoechoweb/ui/buttons';
+```
+
+```html
+<a be-button-cta href="#contact">Contact us</a>
+<a be-button-cta routerLink="/pricing" variant="secondary" fit>See pricing</a>
+```
+
+It takes `variant`, `size` and `fit`, with the same meanings as on the button. It has no `type`, `disabled` or `loading`: links have no form role and can't be disabled natively. Always give it an `href` or `routerLink`; without one, an `<a>` is not focusable.
+
 ## Headings
 
 `be-heading` is an attribute on a native `<h1>`–`<h6>`, so screen readers get the real heading role and level. Use it on every heading so they all look the same. Choose the tag for the page structure, never for its size.
 
 ```ts
-import { HeadingComponent } from '@bravoechoweb/ui';
+import { HeadingComponent } from '@bravoechoweb/ui/typography';
 ```
 
 ```html
@@ -86,7 +103,9 @@ For a larger size on wider screens, add a breakpoint class such as `<h1 be-headi
 `be-container` is an attribute on the `<div>` inside a page section. It sets the section's padding and maximum width, so every section is spaced the same way. Put the background and the section's name on the `<section>`: the background then runs full width, and the section is only announced as a landmark once it has a name.
 
 ```ts
-import { ContainerComponent, HeadingComponent, RevealDirective } from '@bravoechoweb/ui';
+import { RevealDirective } from '@bravoechoweb/ui/directives';
+import { ContainerComponent } from '@bravoechoweb/ui/layout';
+import { HeadingComponent } from '@bravoechoweb/ui/typography';
 ```
 
 ```html
@@ -140,4 +159,4 @@ npx nx storybook ui
 npx nx build-storybook ui
 ```
 
-`nx build ui` writes the npm package to `dist/libs/ui`. That folder is what the tag pipeline publishes. The public entry point is `libs/ui/src/index.ts`. See [RELEASING.md](./RELEASING.md) for the version, tag, and npm token steps.
+`nx build ui` writes the npm package to `dist/libs/ui`. That folder is what the tag pipeline publishes. Each group is its own entry point: `libs/ui/<group>/src/index.ts`, with an `ng-package.json` beside its `src`. Add a new group with `npx nx g @nx/angular:library-secondary-entry-point --library=ui --name=<group> --skipModule`. The generator rewrites `libs/ui/tsconfig.lib.json` with a glob per entry point: revert that, since `*/src/**/*.ts` already covers new groups. See [RELEASING.md](./RELEASING.md) for the version, tag, and npm token steps.

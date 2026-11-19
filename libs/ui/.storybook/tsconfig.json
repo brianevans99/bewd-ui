@@ -8,6 +8,8 @@
   "include": [
     "../src/**/*.stories.ts",
     "../src/**/*.stories.js",
+    "../*/src/**/*.stories.ts",
+    "../*/src/**/*.stories.js",
     "*.js",
     "*.ts"
   ],

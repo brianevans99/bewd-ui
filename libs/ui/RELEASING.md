@@ -109,4 +109,4 @@ Then:
 npm install @bravoechoweb/ui
 ```
 
-The app also installs the `flowbite` peer dependency (`npm install flowbite`), because `theme.css` imports Flowbite's default theme and plugin. `@import '@bravoechoweb/ui/styles/theme.css'` and `@source "../node_modules/@bravoechoweb/ui"` are the Tailwind 4 setup. The component import is `@bravoechoweb/ui`.
+The app also installs the `flowbite` peer dependency (`npm install flowbite`), because `theme.css` imports Flowbite's default theme and plugin. `@import '@bravoechoweb/ui/styles/theme.css'` and `@source "../node_modules/@bravoechoweb/ui"` are the Tailwind 4 setup. Components are imported from group entry points such as `@bravoechoweb/ui/buttons`; the root `@bravoechoweb/ui` exports nothing.
