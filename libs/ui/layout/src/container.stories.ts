@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { RevealDirective, type RevealDirection } from '../../directives/reveal';
-import { HeadingComponent } from '../typography/heading';
+import { RevealDirective, type RevealDirection } from '@bravoechoweb/ui/directives';
+import { HeadingComponent } from '@bravoechoweb/ui/typography';
 import { ContainerComponent } from './container';
 
 type ContainerStoryArgs = ContainerComponent & { reveal: RevealDirection };

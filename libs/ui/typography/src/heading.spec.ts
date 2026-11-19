@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { axe } from '../../testing/axe';
+import { axe } from '../../src/testing/axe';
 import { HeadingComponent, HeadingSize } from './heading';
 
 @Component({

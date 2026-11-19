@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { axe } from '../../testing/axe';
+import { axe } from '../../src/testing/axe';
 import { ButtonCtaComponent, ButtonCtaSize, ButtonCtaType, ButtonCtaVariant } from './button-cta';
 
 @Component({

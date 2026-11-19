@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { axe } from '../../testing/axe';
-import { HeadingComponent } from '../typography/heading';
+import { axe } from '../../src/testing/axe';
+import { HeadingComponent } from '@bravoechoweb/ui/typography';
 import { ContainerComponent, ContainerWidth } from './container';
 
 @Component({
