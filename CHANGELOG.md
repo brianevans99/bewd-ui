@@ -1,3 +1,27 @@
+## 0.4.0 (2026-11-19)
+
+### 🚀 Features
+
+- button fit supports breakpoints
+
+### ❤️ Thank You
+
+- brianevans
+
+## 0.3.0 (2026-11-19)
+
+### 🚀 Features
+
+- ⚠️  add ButtonCtaLinkComponent and per-group entry points
+
+### ⚠️ Breaking Changes
+
+- `@bravoechoweb/ui` no longer exports components. Import from the group entry points, e.g. `@bravoechoweb/ui/buttons`.
+
+### ❤️ Thank You
+
+- brianevans
+
 ## 0.2.0 (2026-11-18)
 
 ### 🚀 Features
