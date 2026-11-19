@@ -1,7 +1,10 @@
-import { booleanAttribute, computed, Directive, ElementRef, inject, input, signal } from '@angular/core';
+import { computed, Directive, ElementRef, inject, input, signal } from '@angular/core';
 
 export type ButtonCtaVariant = 'default' | 'secondary' | 'tertiary' | 'success' | 'danger' | 'warning' | 'dark' | 'ghost';
 export type ButtonCtaSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl';
+export type ButtonCtaBreakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+// true fits at every width; a breakpoint fits from that breakpoint up and fills its parent below it.
+export type ButtonCtaFit = boolean | ButtonCtaBreakpoint;
 
 interface Ripple {
   id: number;
@@ -31,6 +34,26 @@ const sizeClasses: Record<ButtonCtaSize, string> = {
   lg: 'text-base px-5 py-3',
   xl: 'text-base px-6 py-3.5'
 };
+
+// Full class names, never built from the breakpoint at runtime, so consumers' Tailwind builds find them in this package.
+const fitFromClasses: Record<ButtonCtaBreakpoint, string> = {
+  sm: 'w-full sm:w-fit',
+  md: 'w-full md:w-fit',
+  lg: 'w-full lg:w-fit',
+  xl: 'w-full xl:w-fit',
+  '2xl': 'w-full 2xl:w-fit',
+};
+
+function widthClasses(fit: ButtonCtaFit): string {
+  if (fit === true) return 'w-fit';
+  if (fit === false) return 'w-full';
+  return fitFromClasses[fit];
+}
+
+// A bare `fit` attribute passes an empty string, which means fit at every width.
+function fitAttribute(value: ButtonCtaFit | ''): ButtonCtaFit {
+  return value === '' ? true : value;
+}
 
 // Ripple colour is currentColor so it follows each variant and the consumer's theme without @theme tokens.
 export const rippleStyles = `
@@ -76,15 +99,15 @@ export const rippleStyles = `
 export abstract class ButtonCtaBase {
   readonly variant = input<ButtonCtaVariant>('default');
   readonly size = input<ButtonCtaSize>('base');
-  // Full width by default; `fit` shrinks to the content. Only one width class is ever applied, so they can't conflict.
-  readonly fit = input(false, { transform: booleanAttribute });
+  // Full width by default; `fit` shrinks to the content, either always or from a breakpoint up.
+  readonly fit = input<ButtonCtaFit, ButtonCtaFit | ''>(false, { transform: fitAttribute });
 
   protected readonly classes = computed(() =>
     [
       baseClasses,
       variantClasses[this.variant()],
       sizeClasses[this.size()],
-      this.fit() ? 'w-fit' : 'w-full',
+      widthClasses(this.fit()),
       this.stateClasses(),
     ].join(' ')
   );

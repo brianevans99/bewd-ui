@@ -24,8 +24,9 @@ const meta: Meta<ButtonCtaStoryArgs> = {
   },
   argTypes: {
     fit: {
-      control: 'boolean',
-      description: 'The button fills its parent by default. `fit` shrinks it to its content.',
+      control: 'select',
+      options: [false, true, 'sm', 'md', 'lg', 'xl', '2xl'],
+      description: 'The button fills its parent by default. `fit` shrinks it to its content at every width; a breakpoint shrinks it from that breakpoint up.',
     },
     size: {
       control: 'select',
@@ -181,12 +182,12 @@ export const ResponsiveWidth: Story = {
   },
   render: (args) => ({
     props: args,
-    template: `<button be-button-cta [variant]="variant" class="sm:w-fit">{{ label }}</button>`,
+    template: `<button be-button-cta [variant]="variant" fit="sm">{{ label }}</button>`,
   }),
   parameters: {
     docs: {
       description: {
-        story: 'Leave out `fit` and add a breakpoint class such as `sm:w-fit`. Breakpoint classes come later in Tailwind\'s stylesheet, so they override the default full width from that breakpoint up.',
+        story: 'Pass a breakpoint to `fit`, such as `fit="sm"`: the button fills its parent below that breakpoint and fits its content from it up.',
       },
     },
   },

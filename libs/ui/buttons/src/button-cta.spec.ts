@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { axe } from '../../src/testing/axe';
 import { ButtonCtaComponent, ButtonCtaSize, ButtonCtaType, ButtonCtaVariant } from './button-cta';
+import { ButtonCtaBreakpoint, ButtonCtaFit } from './button-cta-base';
 
 @Component({
   imports: [ButtonCtaComponent],
@@ -28,7 +29,7 @@ class TextHostComponent {
   readonly type = input<ButtonCtaType>('button');
   readonly disabled = input<boolean | string>(false);
   readonly loading = input(false);
-  readonly fit = input<boolean | string>(false);
+  readonly fit = input<ButtonCtaFit | ''>(false);
 }
 
 @Component({
@@ -145,6 +146,28 @@ describe('ButtonCtaComponent', () => {
 
     expect(button.classList).toContain('w-fit');
     expect(button.classList).not.toContain('w-full');
+  });
+
+  it('fits at every width with fit="true"', () => {
+    fixture.componentRef.setInput('fit', true);
+    fixture.detectChanges();
+
+    expect(button.classList).toContain('w-fit');
+    expect(button.classList).not.toContain('w-full');
+  });
+
+  it.each<[ButtonCtaBreakpoint, string]>([
+    ['sm', 'sm:w-fit'],
+    ['md', 'md:w-fit'],
+    ['lg', 'lg:w-fit'],
+    ['xl', 'xl:w-fit'],
+    ['2xl', '2xl:w-fit'],
+  ])('with fit="%s", fills its parent and adds %s', (breakpoint, fitClass) => {
+    fixture.componentRef.setInput('fit', breakpoint);
+    fixture.detectChanges();
+
+    expectClasses(button, `w-full ${fitClass}`);
+    expect(button.classList).not.toContain('w-fit');
   });
 
   it('defaults to type="button" so it does not submit forms', () => {

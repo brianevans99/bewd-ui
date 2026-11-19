@@ -60,7 +60,7 @@ Inputs:
 - `type`: `button` (the default, so it never submits a form by accident), `submit`, or `reset`.
 - `disabled`: disables the native button.
 - `loading`: shows a spinner and sets `aria-busy`. The button stays focusable but ignores clicks and form submits.
-- `fit`: the button fills its parent by default; `fit` shrinks it to its content. Use `fit` for icon-only buttons and for buttons in toolbars or other rows, where full-width buttons would share the row equally. For a button that's full width on phones and fits its content on wider screens, leave out `fit` and add a breakpoint class: `<button be-button-cta class="sm:w-fit">`.
+- `fit`: the button fills its parent by default. A bare `fit` shrinks it to its content at every width: use it for icon-only buttons and for buttons in toolbars or other rows, where full-width buttons would share the row equally. Pass a breakpoint (`sm`, `md`, `lg`, `xl` or `2xl`) for a button that's full width on phones and fits its content from that breakpoint up: `<button be-button-cta fit="sm">`.
 
 An icon-only button needs a native `aria-label`, for example `<button be-button-cta aria-label="Download">`.
 
@@ -74,7 +74,7 @@ import { ButtonCtaLinkComponent } from '@bravoechoweb/ui/buttons';
 
 ```html
 <a be-button-cta href="#contact">Contact us</a>
-<a be-button-cta routerLink="/pricing" variant="secondary" fit>See pricing</a>
+<a be-button-cta routerLink="/pricing" variant="secondary" fit="md">See pricing</a>
 ```
 
 It takes `variant`, `size` and `fit`, with the same meanings as on the button. It has no `type`, `disabled` or `loading`: links have no form role and can't be disabled natively. Always give it an `href` or `routerLink`; without one, an `<a>` is not focusable.
